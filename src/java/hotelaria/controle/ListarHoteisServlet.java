@@ -35,5 +35,6 @@ public class ListarHoteisServlet extends HttpServlet {
         List<Hotel> hoteis = hotelBd.ler();
         request.setAttribute("hoteis", hoteis);
         RequestDispatcher rd = request.getRequestDispatcher("/lista_hoteis.jsp");
+        rd.forward(request, response);
     }
 }
