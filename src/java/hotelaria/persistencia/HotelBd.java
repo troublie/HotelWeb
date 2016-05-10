@@ -8,6 +8,7 @@ package hotelaria.persistencia;
 import hotelaria.modelo.Hotel;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,5 +44,22 @@ public class HotelBd {
             System.err.println("erro SQL: " + e);
         }
         return hoteis;
+    }
+
+    public boolean addNovo(String nome, String logradouro, long numero) {
+        String sql = "INSERT INTO hotel VALUES (?,?,?)";
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            String dbUrl = "jdbc:derby://localhost:1527/Hotelaria";
+            Connection connection = DriverManager.getConnection(dbUrl, "app", "app");
+            Statement statement = connection.createStatement();
+            PreparedStatement stInsert = connection.prepareStatement(sql);
+
+        } catch (ClassNotFoundException e) {
+            System.err.println("erro carregando o driver: " + e);
+        } catch (SQLException e) {
+            System.err.println("erro SQL: " + e);
+        }
     }
 }

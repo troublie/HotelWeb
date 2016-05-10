@@ -9,7 +9,7 @@
         <title>Lista Hoteis</title>
     </head>
     <body>
-        <h1>Lita de Hoteis:</h1>
+        <h1>Lista de Hoteis:</h1>
         <table border="1">
             <tr><th>id</th><th>Nome</th><th>Logradouro</th><th>Número</th></tr>
             <%
