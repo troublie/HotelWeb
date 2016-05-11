@@ -5,8 +5,10 @@
  */
 package hotelaria.controle;
 
+import hotelaria.persistencia.HotelBd;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,10 +31,20 @@ public class AdicionarNovoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String pagina;
         String nome = request.getParameter("nome");
         String logradouro = request.getParameter("logradouro");
         long numero = Long.parseLong(request.getParameter("numero"));
+        HotelBd hotelBd = new HotelBd();
+        boolean addNovo = hotelBd.addNovo(nome, logradouro, numero);
+        if(addNovo){
+            pagina = "sucesso_insercao_hotel.jsp";
+        }
+        else{
+            pagina = "falha_insercao_hotel.jsp";
+        }
+        RequestDispatcher rd = request.getRequestDispatcher(pagina);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

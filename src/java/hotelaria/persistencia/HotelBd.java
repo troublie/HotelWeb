@@ -47,19 +47,31 @@ public class HotelBd {
     }
 
     public boolean addNovo(String nome, String logradouro, long numero) {
-        String sql = "INSERT INTO hotel VALUES (?,?,?)";
-
+        String sql = "INSERT into hotel (NOME,LOGRADOURO,NUMERO) VALUES (?,?,?)";
+        int res = 0;
+        boolean result = false;
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             String dbUrl = "jdbc:derby://localhost:1527/Hotelaria";
             Connection connection = DriverManager.getConnection(dbUrl, "app", "app");
             Statement statement = connection.createStatement();
             PreparedStatement stInsert = connection.prepareStatement(sql);
-
+            stInsert.setString(1, nome);
+            stInsert.setString(2, logradouro);
+            stInsert.setLong(3, numero);
+            res = stInsert.executeUpdate();
+            
         } catch (ClassNotFoundException e) {
             System.err.println("erro carregando o driver: " + e);
         } catch (SQLException e) {
             System.err.println("erro SQL: " + e);
         }
+        if(res == 1){
+            result = true;
+        }
+        else{
+            result = false;
+        }
+        return result;
     }
 }
